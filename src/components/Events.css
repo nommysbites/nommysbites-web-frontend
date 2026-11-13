@@ -1,0 +1,416 @@
+/* ==========================================================================
+   Events & Catering Section - Nommy's Bites
+   ========================================================================== */
+.events-section {
+  width: 100%;
+  background: linear-gradient(180deg, #fffdf8 0%, #fff9ed 50%, #fffdf8 100%);
+  padding: 4.5rem 1.75rem 5rem;
+  border-bottom: 1.5px solid rgba(229, 157, 11, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.events-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   2-Column Grid Layout (Desktop)
+   ========================================================================== */
+.events-grid {
+  display: grid;
+  grid-template-columns: 1.08fr 0.92fr;
+  gap: 3.75rem;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Left Column: Content & Event Story
+   ========================================================================== */
+.events-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.events-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-amber);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.events-title {
+  font-family: var(--font-primary);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.events-description {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  color: #78350f;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Event Types Chips */
+.events-tags-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2.25rem;
+}
+
+.event-tag-pill {
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--color-brand-chocolate);
+  background-color: rgba(229, 157, 11, 0.12);
+  border: 1px solid rgba(229, 157, 11, 0.28);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.01em;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+
+.event-tag-pill:hover {
+  background-color: rgba(229, 157, 11, 0.2);
+  border-color: rgba(229, 157, 11, 0.45);
+}
+
+/* Action Row */
+.events-action-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.events-cta-btn {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 45%, #c77b00 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.9rem 1.85rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+  text-decoration: none;
+}
+
+.events-cta-btn span {
+  display: inline-block;
+  line-height: 1;
+}
+
+.events-cta-btn .btn-arrow-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.events-cta-btn:hover {
+  background: linear-gradient(135deg, #f7b038 0%, #f5a623 45%, #d97706 100%);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.events-cta-btn:hover .btn-arrow-icon {
+  transform: translateX(4px);
+}
+
+.events-notice-text {
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  color: #92400e;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Right Column: Fade-In / Fade-Out Slideshow Frame
+   ========================================================================== */
+.events-visual {
+  position: relative;
+  width: 100%;
+}
+
+.event-slideshow-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3.4;
+  border-radius: 22px;
+  overflow: hidden;
+  background-color: var(--color-brand-deep-cocoa);
+  box-shadow: 0 10px 32px rgba(110, 49, 5, 0.14);
+}
+
+/* Viewport for Slides */
+.event-slideshow-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.event-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Previous slide stays 100% solid underneath while new slide fades in */
+.event-slide.slide-previous {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Current slide sits on top */
+.event-slide.slide-current {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Smooth cross-fade transition */
+.event-slide.slide-current.transitioning {
+  animation: eventSlideFade 1.2s ease-in-out forwards;
+}
+
+@keyframes eventSlideFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.event-slide-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* Slide Caption Overlay (Bottom Gradient) */
+.event-slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3.5rem 1.5rem 1.35rem;
+  background: linear-gradient(
+    to top,
+    rgba(35, 14, 2, 0.95) 0%,
+    rgba(35, 14, 2, 0.75) 45%,
+    rgba(35, 14, 2, 0.35) 75%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.event-slide-tag {
+  font-family: var(--font-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-honey);
+  margin-bottom: 0.25rem;
+}
+
+.event-slide-title {
+  font-family: var(--font-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.25rem 0;
+  line-height: 1.25;
+}
+
+.event-slide-sub {
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  color: #fef3c7;
+  margin: 0;
+  line-height: 1.35;
+}
+
+/* Slide Indicator Dots */
+.event-slideshow-dots {
+  position: absolute;
+  top: 1.15rem;
+  right: 1.15rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(44, 18, 2, 0.65);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  padding: 0.35rem 0.55rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(229, 157, 11, 0.3);
+}
+
+.event-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.45);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  transition: width 0.25s ease, background-color 0.25s ease, border-radius 0.25s ease;
+  outline: none;
+}
+
+.event-dot.active {
+  width: 18px;
+  border-radius: 9999px;
+  background-color: var(--color-brand-honey);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .events-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .events-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .events-section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .events-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .events-visual {
+    order: -1; /* Place slideshow above or below */
+  }
+
+  .event-slideshow-card {
+    aspect-ratio: 16 / 10;
+    max-height: 380px;
+  }
+
+  .events-title {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .events-section {
+    padding: 2.5rem 0.85rem;
+  }
+
+  .events-eyebrow {
+    font-size: 0.8rem;
+  }
+
+  .events-title {
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .events-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+  }
+
+  .events-tags-wrap {
+    gap: 0.35rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .event-tag-pill {
+    font-size: 0.72rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .event-slideshow-card {
+    aspect-ratio: 16 / 11;
+    border-radius: 16px;
+    max-height: 300px;
+  }
+
+  .event-slide-caption {
+    padding: 2.5rem 1rem 0.85rem;
+  }
+
+  .event-slide-tag {
+    font-size: 0.62rem;
+  }
+
+  .event-slide-title {
+    font-size: 1rem;
+    margin-bottom: 0.15rem;
+  }
+
+  .event-slide-sub {
+    font-size: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .events-action-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .events-cta-btn {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  .events-notice-text {
+    text-align: center;
+    font-size: 0.75rem;
+  }
+}
+

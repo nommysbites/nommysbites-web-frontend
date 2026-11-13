@@ -1,0 +1,259 @@
+/* ==========================================================================
+   Call to Action (CTA) Section - Nommy's Bites
+   ========================================================================== */
+.cta-section {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2a1102 0%, #451d05 55%, #351403 100%);
+  padding: 5rem 1.75rem;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cta-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+/* Ambient glow accents */
+.cta-glow-accent {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.28;
+}
+
+.cta-glow-1 {
+  width: 320px;
+  height: 320px;
+  background: #f5a623;
+  top: -80px;
+  left: -80px;
+}
+
+.cta-glow-2 {
+  width: 280px;
+  height: 280px;
+  background: #e59d0b;
+  bottom: -60px;
+  right: -60px;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 2;
+  max-width: 780px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cta-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: #f5a623;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.cta-title {
+  font-family: var(--font-primary);
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.cta-subtitle {
+  font-family: var(--font-primary);
+  font-size: 1.08rem;
+  color: #fef3c7;
+  line-height: 1.6;
+  margin: 0 0 2.25rem 0;
+  opacity: 0.92;
+}
+
+/* Actions Row - Flat buttons without shadows */
+.cta-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.cta-btn-primary {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 45%, #c77b00 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.9rem 2rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: none;
+  transition: transform 0.2s ease, background 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+}
+
+.cta-btn-primary span {
+  display: inline-block;
+  line-height: 1;
+}
+
+.cta-btn-primary .btn-arrow-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
+  transition: transform 0.2s ease;
+}
+
+.cta-btn-primary:hover {
+  background: linear-gradient(135deg, #f7b038 0%, #f5a623 45%, #d97706 100%);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.cta-btn-primary:hover .btn-arrow-icon {
+  transform: translateX(4px);
+}
+
+.cta-btn-secondary {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1.5px solid rgba(245, 166, 35, 0.6);
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 700;
+  padding: 0.88rem 1.85rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: none;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.cta-btn-secondary:hover {
+  background-color: rgba(245, 166, 35, 0.15);
+  border-color: #f5a623;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* Trust Badges */
+.cta-trust-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.75rem;
+  flex-wrap: wrap;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(229, 157, 11, 0.2);
+  width: 100%;
+}
+
+.cta-trust-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fef3c7;
+  opacity: 0.9;
+}
+
+.cta-trust-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--color-brand-amber);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 768px) {
+  .cta-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+  }
+
+  .cta-subtitle {
+    font-size: 0.98rem;
+  }
+
+  .cta-actions {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .cta-section {
+    padding: 3rem 1.25rem;
+  }
+
+  .cta-eyebrow {
+    font-size: 0.74rem;
+  }
+
+  .cta-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .cta-subtitle {
+    font-size: 0.88rem;
+    line-height: 1.5;
+    margin-bottom: 1.75rem;
+  }
+
+  .cta-actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0.75rem;
+  }
+
+  .cta-btn-primary,
+  .cta-btn-secondary {
+    width: 100%;
+    padding: 0.8rem 1.25rem;
+    font-size: 0.92rem;
+  }
+
+  .cta-trust-row {
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+}
+

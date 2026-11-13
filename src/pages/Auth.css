@@ -1,0 +1,394 @@
+/* ==========================================================================
+   Passwordless Auth Pages (Login & Sign Up) - Nommy's Bites
+   Flat, page-level design (no container card) with smooth sliding track
+   ========================================================================== */
+.auth-page {
+  width: 100%;
+  min-height: calc(100vh - 160px);
+  background-color: var(--color-brand-cream);
+  padding: 4.5rem 1.25rem 5.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.auth-container {
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Horizontal Sliding Carousel Track (like Google Sign-In) */
+.auth-slider-viewport {
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  transition: height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+}
+
+.auth-slider-track {
+  display: flex;
+  width: 100%;
+  align-items: flex-start;
+  transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.auth-slide {
+  width: 100%;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  padding: 0.25rem 0.25rem 1rem;
+}
+
+.auth-slide:not(.active) {
+  pointer-events: none;
+}
+
+/* Header & Typography */
+.auth-header {
+  text-align: center;
+  margin-bottom: 1.85rem;
+}
+
+.auth-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.09em;
+  color: var(--color-brand-amber);
+  text-transform: uppercase;
+  margin-bottom: 0.4rem;
+}
+
+.auth-title {
+  font-family: var(--font-primary);
+  font-size: 1.95rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 0.55rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+.auth-subtitle {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: #78350f;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.auth-email-highlight {
+  display: inline-block;
+  max-width: 100%;
+  color: var(--color-brand-deep-cocoa);
+  font-weight: 800;
+  overflow-wrap: break-word;
+  word-break: normal;
+  vertical-align: baseline;
+}
+
+/* Back Button (Inside OTP Slide) */
+.auth-back-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 0.95rem;
+}
+
+.auth-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-brand-deep-cocoa);
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem 0.5rem 0.25rem 0;
+  transition: transform 0.15s ease, color 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.auth-back-btn:hover {
+  background: transparent;
+  border: none;
+  transform: translateX(-3px);
+  color: var(--color-brand-amber);
+}
+
+.auth-back-btn svg {
+  stroke: var(--color-brand-deep-cocoa);
+  transition: stroke 0.15s ease;
+  display: block;
+}
+
+.auth-back-btn:hover svg {
+  stroke: var(--color-brand-amber);
+}
+
+/* Continue with Google Button */
+.auth-google-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  background-color: #ffffff;
+  color: var(--color-brand-deep-cocoa);
+  border: 1.5px solid rgba(110, 49, 5, 0.22);
+  border-radius: 9999px;
+  padding: 0.85rem 1.25rem;
+  font-family: var(--font-primary);
+  font-size: 0.96rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+    transform 0.15s ease;
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.auth-google-btn:hover {
+  background-color: #ffffff;
+  border-color: var(--color-brand-amber);
+  transform: translateY(-1px);
+}
+
+/* Divider */
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  margin: 1.5rem 0 1.35rem;
+  color: #9a5b13;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background-color: rgba(229, 157, 11, 0.28);
+}
+
+/* Form Styles */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.auth-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.auth-label {
+  font-family: var(--font-primary);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--color-brand-deep-cocoa);
+}
+
+.auth-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: var(--color-brand-deep-cocoa);
+  background-color: #ffffff;
+  border: 1.5px solid rgba(229, 157, 11, 0.35);
+  border-radius: 12px;
+  padding: 0.82rem 1.05rem;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.auth-input:focus {
+  border-color: var(--color-brand-amber);
+  box-shadow: 0 0 0 3px rgba(229, 157, 11, 0.18);
+}
+
+.auth-input.error {
+  border-color: #dc2626;
+  background-color: #fff8f8;
+}
+
+.auth-err-msg {
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #dc2626;
+}
+
+/* Primary CTA Button */
+.auth-primary-btn {
+  width: 100%;
+  background: linear-gradient(
+    135deg,
+    #f5a623 0%,
+    var(--color-brand-amber) 45%,
+    #c77b00 100%
+  );
+  color: #ffffff;
+  border: none;
+  border-radius: 9999px;
+  padding: 0.9rem 1.35rem;
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-sizing: border-box;
+  box-shadow: none;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.auth-primary-btn:hover {
+  transform: translateY(-1.5px);
+}
+
+.auth-primary-btn:active {
+  transform: translateY(0);
+}
+
+/* OTP 6-Digit Grid */
+.otp-inputs-row {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+  width: 100%;
+}
+
+.otp-box {
+  width: 100%;
+  height: 54px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: var(--font-primary);
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  background-color: #ffffff;
+  border: 1.5px solid rgba(229, 157, 11, 0.4);
+  border-radius: 12px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.otp-box:focus {
+  border-color: var(--color-brand-amber);
+  box-shadow: 0 0 0 3px rgba(229, 157, 11, 0.18);
+}
+
+.otp-box.error {
+  border-color: #dc2626;
+  background-color: #fff8f8;
+}
+
+/* Resend Row */
+.auth-resend-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  color: #78350f;
+  margin-top: 0.25rem;
+}
+
+.auth-text-btn {
+  background: transparent;
+  border: none;
+  padding: 0;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-brand-amber);
+  cursor: pointer;
+  text-decoration: underline;
+  transition: color 0.15s ease;
+}
+
+.auth-text-btn:hover:not(:disabled) {
+  color: #92400e;
+}
+
+.auth-text-btn:disabled {
+  color: #9a5b13;
+  text-decoration: none;
+  cursor: default;
+  opacity: 0.7;
+}
+
+/* Footer Switch */
+.auth-footer-switch {
+  margin-top: 1.75rem;
+  padding-top: 1.35rem;
+  border-top: 1px solid rgba(229, 157, 11, 0.22);
+  text-align: center;
+}
+
+.auth-footer-switch p {
+  margin: 0;
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  color: #78350f;
+}
+
+.auth-switch-link {
+  color: var(--color-brand-amber);
+  font-weight: 700;
+  text-decoration: none;
+  margin-left: 0.25rem;
+}
+
+.auth-switch-link:hover {
+  color: var(--color-brand-deep-cocoa);
+  text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 540px) {
+  .auth-page {
+    padding: 2.75rem 1rem 4.5rem;
+    align-items: flex-start;
+  }
+
+  .auth-title {
+    font-size: 1.65rem;
+  }
+
+  .otp-inputs-row {
+    gap: 0.35rem;
+  }
+
+  .otp-box {
+    height: 48px;
+    font-size: 1.15rem;
+    border-radius: 10px;
+  }
+}

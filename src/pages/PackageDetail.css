@@ -1,0 +1,645 @@
+/* ==========================================================================
+   Package Detail Page - Nommy's Bites
+   ========================================================================== */
+.package-detail-page {
+  width: 100%;
+  background-color: var(--color-brand-cream);
+  min-height: 100vh;
+  padding: 2rem 1.75rem 5rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.package-detail-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* Breadcrumbs */
+.detail-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.detail-breadcrumbs .breadcrumb-link {
+  color: #8c5324;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.detail-breadcrumbs .breadcrumb-link:hover {
+  color: var(--color-brand-amber);
+}
+
+.detail-breadcrumbs .breadcrumb-sep {
+  color: rgba(110, 49, 5, 0.35);
+}
+
+.detail-breadcrumbs .breadcrumb-current {
+  color: var(--color-brand-deep-cocoa);
+  font-weight: 700;
+}
+
+/* Back Link Button */
+.detail-back-btn {
+  background: transparent;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--color-brand-amber);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.detail-back-btn:hover {
+  color: var(--color-brand-deep-cocoa);
+  transform: translateX(-3px);
+}
+
+/* ==========================================================================
+   Main 2-Column Detail Card
+   ========================================================================== */
+.package-detail-card {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 3.5rem;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 3rem;
+  border: 1px solid rgba(229, 157, 11, 0.2);
+  box-shadow: 0 4px 20px rgba(110, 49, 5, 0.06);
+  margin-bottom: 4.5rem;
+}
+
+/* Left Column: Visual Gallery */
+.detail-visual-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-main-image-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff9ed;
+  border: 1px solid rgba(229, 157, 11, 0.25);
+}
+
+.detail-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.detail-tag-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 100%);
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+.detail-serves-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-family: var(--font-primary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--color-brand-deep-cocoa);
+  background-color: rgba(255, 253, 248, 0.95);
+  border: 1px solid rgba(229, 157, 11, 0.3);
+  padding: 0.25rem 0.7rem;
+  border-radius: 9999px;
+}
+
+.detail-thumbnails-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  overflow-x: auto;
+  padding: 0.35rem 0.25rem;
+}
+
+.detail-thumb-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 2.5px solid transparent;
+  background-color: #fff9ed;
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  opacity: 0.72;
+  transition: border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.detail-thumb-btn:hover {
+  opacity: 1;
+  border-color: rgba(229, 157, 11, 0.5);
+}
+
+.detail-thumb-btn.active {
+  opacity: 1;
+  border-color: var(--color-brand-amber);
+  box-shadow: 0 0 0 2px rgba(229, 157, 11, 0.35);
+}
+
+.detail-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Right Column: Info & Actions */
+.detail-info-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-category-eyebrow {
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-brand-amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+.detail-title {
+  font-family: var(--font-primary);
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 0.85rem 0;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+}
+
+/* Rating Row */
+.detail-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.detail-stars {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  color: #f5a623;
+  font-size: 1.05rem;
+}
+
+.detail-rating-score {
+  font-weight: 700;
+  color: var(--color-brand-deep-cocoa);
+  margin-left: 0.25rem;
+}
+
+.detail-meta-divider {
+  color: rgba(110, 49, 5, 0.3);
+}
+
+.detail-orders-count {
+  color: #78350f;
+  font-weight: 600;
+}
+
+.detail-verified-kitchen {
+  color: #15803d;
+  font-weight: 700;
+}
+
+/* Price Box */
+.detail-price-box {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.15rem 1.35rem;
+  background-color: #fffdf8;
+  border: 1.5px solid rgba(229, 157, 11, 0.25);
+  border-radius: 16px;
+  margin-bottom: 1.75rem;
+}
+
+.detail-price-numbers {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.detail-current-price {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  line-height: 1;
+}
+
+.detail-original-price {
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #9ca3af;
+  text-decoration: line-through;
+}
+
+.detail-savings-badge {
+  font-family: var(--font-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: #b45309;
+  background-color: #fef3c7;
+  border: 1px solid rgba(229, 157, 11, 0.4);
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   "What's Inside This Package" Breakdown Section
+   ========================================================================== */
+.detail-breakdown-section {
+  margin-bottom: 1.75rem;
+}
+
+.breakdown-title {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 0.85rem 0;
+  letter-spacing: -0.01em;
+}
+
+.breakdown-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+}
+
+.breakdown-item-card {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  background-color: #fbf7ee;
+  border: 1px solid rgba(229, 157, 11, 0.22);
+  padding: 0.75rem 1rem;
+  border-radius: 12px;
+}
+
+.breakdown-item-count {
+  font-family: var(--font-primary);
+  font-weight: 800;
+  font-size: 0.95rem;
+  color: var(--color-brand-deep-cocoa);
+}
+
+.breakdown-item-name {
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #592503;
+}
+
+.breakdown-fallback {
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  color: #78350f;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Order Actions (Qty + Add to Bag + WhatsApp) - Zero Shadow!
+   ========================================================================== */
+.detail-order-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-top: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.detail-qty-picker {
+  display: inline-flex;
+  align-items: center;
+  background-color: #ffffff;
+  border: 1.5px solid rgba(229, 157, 11, 0.4);
+  border-radius: 9999px;
+  min-height: 48px;
+  padding: 0.35rem 0.5rem;
+  flex-shrink: 0;
+  width: fit-content;
+  box-sizing: border-box;
+}
+
+.detail-qty-btn {
+  background: transparent;
+  border: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--color-brand-deep-cocoa);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease;
+}
+
+.detail-qty-btn:hover {
+  background-color: rgba(229, 157, 11, 0.15);
+}
+
+.detail-qty-number {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  min-width: 34px;
+  text-align: center;
+}
+
+.detail-add-bag-btn {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 45%, #c77b00 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 1rem;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0.85rem 1.75rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: none;
+  transition: background 0.2s ease, transform 0.15s ease;
+  flex: 1;
+  min-width: 170px;
+  box-sizing: border-box;
+}
+
+.detail-add-bag-btn:hover {
+  background: linear-gradient(135deg, #f7b038 0%, #f5a623 45%, #d97706 100%);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+.detail-add-gift-btn {
+  background-color: #ffffff;
+  color: var(--color-brand-deep-cocoa);
+  border: 1.5px solid rgba(229, 157, 11, 0.55);
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0.85rem 1.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.15s ease, transform 0.15s ease,
+    border-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.detail-add-gift-btn:hover {
+  background-color: #fff9eb;
+  border-color: var(--color-brand-amber);
+  transform: translateY(-2px);
+}
+
+.btn-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.detail-whatsapp-btn {
+  background-color: #25d366;
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 700;
+  min-height: 48px;
+  padding: 0.85rem 1.6rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  box-shadow: none;
+  text-decoration: none;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  box-sizing: border-box;
+}
+
+.detail-whatsapp-btn:hover {
+  background-color: #1fa851;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Related Packages Section
+   ========================================================================== */
+.detail-related-section {
+  padding-top: 1rem;
+}
+
+.detail-related-header {
+  margin-bottom: 2rem;
+}
+
+.detail-related-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--color-brand-amber);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+}
+
+.detail-related-title {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.detail-related-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* Not Found State */
+.package-not-found {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 1.5rem;
+}
+
+.not-found-card {
+  text-align: center;
+  background: #ffffff;
+  padding: 3rem 2rem;
+  border-radius: 20px;
+  border: 1px solid rgba(229, 157, 11, 0.2);
+  max-width: 440px;
+}
+
+.not-found-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.not-found-card h2 {
+  font-family: var(--font-primary);
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 0.5rem 0;
+}
+
+.not-found-card p {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: #78350f;
+  margin: 0 0 1.5rem 0;
+}
+
+.btn-back-menu {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 100%);
+  color: #ffffff;
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  font-weight: 700;
+  padding: 0.75rem 1.75rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  display: inline-block;
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 960px) {
+  .package-detail-card {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    padding: 1.75rem;
+  }
+
+  .detail-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .package-detail-page {
+    padding: 1.25rem 0.85rem 3.5rem;
+  }
+
+  .package-detail-card {
+    padding: 1.25rem;
+    border-radius: 18px;
+    margin-bottom: 3rem;
+  }
+
+  .detail-title {
+    font-size: 1.65rem;
+  }
+
+  .detail-current-price {
+    font-size: 1.6rem;
+  }
+
+  .breakdown-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .detail-order-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.85rem;
+  }
+
+  .detail-qty-picker {
+    align-self: flex-start;
+    width: auto;
+    min-width: 130px;
+    height: 46px;
+    box-sizing: border-box;
+  }
+
+  .detail-add-bag-btn,
+  .detail-add-gift-btn {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.95rem 1.5rem;
+    font-size: 1rem;
+    box-sizing: border-box;
+  }
+
+  .detail-whatsapp-btn {
+    width: 100%;
+    min-height: 50px;
+    padding: 0.95rem 1.5rem;
+    font-size: 0.98rem;
+    box-sizing: border-box;
+  }
+
+  .detail-related-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.65rem;
+  }
+}
+

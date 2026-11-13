@@ -1,0 +1,228 @@
+/* ==========================================================================
+   Full-Screen Background Slideshow Hero Section with Dark Overlay
+   ========================================================================== */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 76px);
+  min-height: calc(100svh - 76px);
+  overflow: hidden;
+  background-color: var(--color-brand-deep-cocoa);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.hero-slideshow {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-bg-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Previous slide stays 100% solid underneath while new slide fades in */
+.hero-bg-slide.slide-previous {
+  opacity: 1;
+  z-index: 1;
+}
+
+/* Current slide sits on top */
+.hero-bg-slide.slide-current {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Smooth cross-fade transition only when transitioning between slides */
+.hero-bg-slide.slide-current.transitioning {
+  animation: slideFadeIn 1.8s ease-in-out forwards;
+}
+
+@keyframes slideFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.hero-bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Dark shade overlay */
+.hero-dark-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(18, 8, 3, 0.52) 0%,
+    rgba(18, 8, 3, 0.44) 50%,
+    rgba(18, 8, 3, 0.62) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Content centered over dark overlay */
+.hero-content {
+  position: relative;
+  z-index: 4;
+  max-width: 820px;
+  width: 100%;
+  padding: 2rem 1.5rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.hero-headline {
+  font-family: var(--font-primary);
+  font-size: 3.1rem;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #ffffff;
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.025em;
+  max-width: 740px;
+}
+
+.hero-subtext {
+  font-family: var(--font-primary);
+  font-size: 1.15rem;
+  font-weight: 400;
+  color: #fff9ed;
+  line-height: 1.55;
+  margin: 0 0 2.25rem 0;
+  max-width: 620px;
+  opacity: 0.95;
+}
+
+/* Primary Action Button */
+.hero-cta-btn {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 45%, #c77b00 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.95rem 2.6rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  letter-spacing: 0.01em;
+  transition: background 0.2s ease, transform 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+.hero-cta-btn:hover {
+  background: linear-gradient(135deg, #f7b038 0%, #f5a623 45%, #d97706 100%);
+  transform: translateY(-2px);
+}
+
+.hero-cta-btn:active {
+  transform: translateY(0);
+}
+
+/* Continuous pointing arrow animation */
+.cta-arrow {
+  width: 18px;
+  height: 18px;
+  stroke: #ffffff;
+  display: inline-block;
+  flex-shrink: 0;
+  animation: arrowPointing 1.25s ease-in-out infinite;
+}
+
+@keyframes arrowPointing {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
+/* ==========================================================================
+   Responsive Breakpoints - Standard Mobile Height
+   ========================================================================== */
+@media (max-width: 820px) {
+  .hero-section {
+    height: 460px;
+    min-height: 440px;
+  }
+
+  .hero-content {
+    padding: 1.5rem 1.25rem;
+  }
+
+  .hero-headline {
+    font-size: 2.15rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.98rem;
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+  }
+
+  .hero-cta-btn {
+    padding: 0.85rem 2.2rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-section {
+    height: 400px;
+    min-height: 380px;
+  }
+
+  .hero-content {
+    padding: 1.25rem 1rem;
+  }
+
+  .hero-headline {
+    font-size: 1.65rem;
+    line-height: 1.2;
+    margin-bottom: 0.6rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.9rem;
+    line-height: 1.45;
+    margin-bottom: 1.35rem;
+  }
+
+  .hero-cta-btn {
+    width: auto;
+    min-width: 200px;
+    padding: 0.75rem 1.75rem;
+    font-size: 0.95rem;
+  }
+}

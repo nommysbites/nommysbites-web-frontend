@@ -1,0 +1,244 @@
+/* ==========================================================================
+   Footer Section - Nommy's Bites
+   ========================================================================== */
+.site-footer {
+  width: 100%;
+  background-color: #1f0b01;
+  color: #fef3c7;
+  position: relative;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+/* Top Accent Bar */
+.footer-top-accent {
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(90deg, #f5a623 0%, var(--color-brand-amber) 50%, #c77b00 100%);
+}
+
+.footer-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 4.5rem 1.75rem 2.5rem;
+}
+
+/* ==========================================================================
+   Main Footer Grid
+   ========================================================================== */
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.35fr 0.85fr 1fr 1.3fr;
+  gap: 3.5rem;
+  padding-bottom: 3.5rem;
+  border-bottom: 1px solid rgba(229, 157, 11, 0.2);
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Brand Column */
+.footer-col-brand {
+  gap: 1.15rem;
+}
+
+.footer-brand {
+  display: inline-block;
+  line-height: 1;
+}
+
+.footer-logo {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  margin: -6px 0;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.footer-brand-desc {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #fef3c7;
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* Social Links */
+.footer-social-links {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+.footer-social-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: rgba(229, 157, 11, 0.12);
+  border: 1px solid rgba(229, 157, 11, 0.3);
+  color: #fef3c7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  box-shadow: none;
+}
+
+.footer-social-btn:hover {
+  background-color: var(--color-brand-amber);
+  color: #ffffff;
+  border-color: var(--color-brand-amber);
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* Column Titles */
+.footer-col-title {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 1.25rem 0;
+  letter-spacing: -0.01em;
+}
+
+/* Links Lists */
+.footer-links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.footer-link {
+  font-family: var(--font-primary);
+  font-size: 0.9rem;
+  color: #fef3c7;
+  opacity: 0.82;
+  transition: opacity 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  display: inline-block;
+}
+
+.footer-link:hover {
+  opacity: 1;
+  color: var(--color-brand-honey);
+  transform: translateX(3px);
+}
+
+/* Contact List */
+.footer-contact-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.footer-contact-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.65rem;
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #fef3c7;
+  opacity: 0.88;
+}
+
+.footer-contact-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.footer-contact-link:hover {
+  color: var(--color-brand-honey);
+  opacity: 1;
+}
+
+.footer-contact-icon {
+  font-size: 1rem;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   Bottom Copyright Bar
+   ========================================================================== */
+.footer-bottom {
+  padding-top: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.footer-copyright {
+  font-family: var(--font-primary);
+  font-size: 0.84rem;
+  color: #fef3c7;
+  opacity: 0.75;
+  margin: 0;
+}
+
+.footer-tagline {
+  font-family: var(--font-primary);
+  font-size: 0.84rem;
+  color: #f5a623;
+  margin: 0;
+  opacity: 0.9;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 960px) {
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2.75rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .footer-container {
+    padding: 3rem 1.15rem 2rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2.25rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .footer-col-brand {
+    gap: 0.85rem;
+  }
+
+  .footer-logo {
+    height: 46px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    padding-top: 1.5rem;
+  }
+
+  .footer-copyright,
+  .footer-tagline {
+    font-size: 0.78rem;
+  }
+}
+

@@ -1,0 +1,58 @@
+/* ==========================================================================
+   Floating Bottom-Right WhatsApp Button - Nommy's Bites
+   ========================================================================== */
+.floating-whatsapp-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 985;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background-color: #25d366;
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+  transition: transform 0.2s ease, background-color 0.2s ease, bottom 0.25s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.floating-whatsapp-btn:hover {
+  background-color: #1fb857;
+  transform: translateY(-2px);
+}
+
+.floating-whatsapp-btn:active {
+  transform: translateY(0);
+}
+
+/* Prevent overlap with centered floating Bag / Gift Box bar on medium & small screens */
+@media (max-width: 860px) {
+  .floating-whatsapp-btn.with-floating-bar {
+    bottom: 6rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .floating-whatsapp-btn {
+    bottom: 1rem;
+    right: 1rem;
+    width: 48px;
+    height: 48px;
+  }
+
+  .floating-whatsapp-btn svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .floating-whatsapp-btn.with-floating-bar {
+    bottom: 5.35rem;
+  }
+}
+

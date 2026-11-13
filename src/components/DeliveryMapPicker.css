@@ -1,0 +1,288 @@
+/* ==========================================================================
+   Delivery Map Picker Component - Nommy's Bites
+   ========================================================================== */
+
+.delivery-map-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+
+/* Search Box */
+.map-search-box {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.map-search-input {
+  width: 100%;
+  font-family: var(--font-primary);
+  font-size: 0.92rem;
+  color: var(--color-brand-deep-cocoa);
+  background-color: #fffdf8;
+  border: 1.5px solid rgba(229, 157, 11, 0.35);
+  border-radius: 12px;
+  padding: 0.7rem 0.95rem;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.map-search-input:focus {
+  border-color: var(--color-brand-amber);
+  background-color: #ffffff;
+}
+
+.map-search-status {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.78rem;
+  color: #78350f;
+}
+
+.map-search-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border: 1.5px solid rgba(229, 157, 11, 0.35);
+  border-radius: 12px;
+  margin: 0;
+  padding: 0.35rem 0;
+  list-style: none;
+  z-index: 1000;
+  max-height: 240px;
+  overflow-y: auto;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.map-search-result-btn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 0.6rem 0.95rem;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  font-family: var(--font-primary);
+}
+
+.map-search-result-btn:hover {
+  background-color: #fff4d9;
+}
+
+.search-result-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--color-brand-deep-cocoa);
+}
+
+.search-result-coords {
+  font-size: 0.75rem;
+  color: #78350f;
+}
+
+/* Map Canvas Wrapper */
+.map-canvas-wrapper {
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  width: 100%;
+  max-width: 100%;
+  height: 380px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1.5px solid rgba(229, 157, 11, 0.3);
+  background-color: #e5e7eb;
+  box-sizing: border-box;
+}
+
+.map-canvas-wrapper .leaflet-pane,
+.map-canvas-wrapper .leaflet-top,
+.map-canvas-wrapper .leaflet-bottom,
+.map-canvas-wrapper .leaflet-control {
+  z-index: 400 !important;
+}
+
+.map-leaflet-canvas {
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+
+.map-leaflet-canvas:active {
+  cursor: grabbing;
+}
+
+/* Google Maps-style My Location Button */
+.map-my-location-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  z-index: 500;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  color: #451d05;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  padding: 0;
+}
+
+.map-my-location-btn:hover {
+  background-color: #f8fafc;
+  color: #1a73e8;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.map-my-location-btn.locating svg {
+  animation: pulse 1s infinite alternate;
+  color: #1a73e8;
+}
+
+@keyframes pulse {
+  from {
+    transform: scale(0.9);
+    opacity: 0.6;
+  }
+  to {
+    transform: scale(1.15);
+    opacity: 1;
+  }
+}
+
+.map-geocoding-spinner {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-primary);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-brand-deep-cocoa);
+  border: 1px solid rgba(229, 157, 11, 0.3);
+  z-index: 500;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Coordinates Bar */
+.map-coordinates-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  background-color: #fffdf8;
+  border: 1px solid rgba(229, 157, 11, 0.25);
+  border-radius: 10px;
+  padding: 0.55rem 0.85rem;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  color: var(--color-brand-deep-cocoa);
+}
+
+.map-open-gmaps-link {
+  color: var(--color-brand-amber);
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.map-location-notice {
+  background-color: #fff4d9;
+  border: 1px solid rgba(229, 157, 11, 0.4);
+  border-radius: 10px;
+  padding: 0.6rem 0.85rem;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  color: #78350f;
+}
+
+/* Custom Marker Pins */
+.custom-map-icon {
+  background: transparent;
+  border: none;
+}
+
+.store-pin-bubble {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #e59d0b;
+  border: 2.5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.store-pin-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.store-pin-tip {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 7px solid #e59d0b;
+}
+
+.customer-pin-bubble {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #dc2626;
+  border: 2.5px solid #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  position: relative;
+}
+
+.customer-pin-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.customer-pin-tip {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid #dc2626;
+}

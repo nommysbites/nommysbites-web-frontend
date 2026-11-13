@@ -1,0 +1,450 @@
+/* ==========================================================================
+   Outlet Section - Nommy's Bites Physical Storefront
+   ========================================================================== */
+.outlet-section {
+  width: 100%;
+  background-color: var(--color-brand-cream);
+  padding: 4.5rem 1.75rem 5rem;
+  border-bottom: 1.5px solid rgba(229, 157, 11, 0.2);
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.outlet-container {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ==========================================================================
+   2-Column Grid Layout (Desktop)
+   ========================================================================== */
+.outlet-grid {
+  display: grid;
+  grid-template-columns: 0.95fr 1.05fr;
+  gap: 3.75rem;
+  align-items: center;
+}
+
+/* ==========================================================================
+   Visual Column: Outlet Photo Card
+   ========================================================================== */
+.outlet-visual {
+  position: relative;
+  width: 100%;
+}
+
+.outlet-image-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 520px;
+  border-radius: 22px;
+  overflow: hidden;
+  background-color: var(--color-brand-deep-cocoa);
+  box-shadow: 0 10px 32px rgba(110, 49, 5, 0.12);
+}
+
+.outlet-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transition: transform 0.45s ease;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.outlet-image-card:hover .outlet-image {
+  transform: scale(1.03);
+}
+
+/* Status Badge (Top Left) */
+.outlet-status-badge {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  z-index: 10;
+  background: rgba(44, 18, 2, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #ffffff;
+  padding: 0.38rem 0.85rem;
+  border-radius: 9999px;
+  font-family: var(--font-primary);
+  font-size: 0.76rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  border: 1px solid rgba(245, 166, 35, 0.35);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.outlet-pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: outletPulse 2s infinite;
+}
+
+@keyframes outletPulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+/* Location Overlay (Bottom Gradient) */
+.outlet-location-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 3rem 1.35rem 1.25rem;
+  background: linear-gradient(
+    to top,
+    rgba(35, 14, 2, 0.92) 0%,
+    rgba(35, 14, 2, 0.55) 55%,
+    transparent 100%
+  );
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.outlet-campus-pill {
+  font-family: var(--font-primary);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-brand-honey);
+  margin-bottom: 0.2rem;
+}
+
+.outlet-overlay-title {
+  font-family: var(--font-primary);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #ffffff;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   Content Column: Details & Directions
+   ========================================================================== */
+.outlet-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.outlet-eyebrow {
+  display: inline-block;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-brand-amber);
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.outlet-title {
+  font-family: var(--font-primary);
+  font-size: 2.35rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0 0 1rem 0;
+  letter-spacing: -0.02em;
+}
+
+.outlet-description {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  color: #78350f;
+  line-height: 1.6;
+  margin: 0 0 1.75rem 0;
+}
+
+/* Info Cards (Address & Hours) */
+.outlet-info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.outlet-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background-color: #ffffff;
+  padding: 1.1rem 1.25rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(110, 49, 5, 0.06);
+  border: 1px solid rgba(229, 157, 11, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.outlet-info-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(110, 49, 5, 0.1);
+}
+
+.outlet-info-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(229, 157, 11, 0.2) 0%, rgba(229, 157, 11, 0.08) 100%);
+  color: var(--color-brand-amber);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.outlet-info-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.outlet-info-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.outlet-info-label {
+  font-family: var(--font-primary);
+  font-size: 0.76rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #a16207;
+  margin-bottom: 0.25rem;
+}
+
+.outlet-info-value {
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--color-brand-deep-cocoa);
+  margin: 0;
+  line-height: 1.45;
+}
+
+.outlet-hours-sub {
+  font-family: var(--font-primary);
+  font-size: 0.78rem;
+  color: #8c5324;
+  margin-top: 0.25rem;
+}
+
+/* Perks Row */
+.outlet-perks-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-bottom: 2rem;
+}
+
+.outlet-perk-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-primary);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-brand-chocolate);
+  background-color: rgba(229, 157, 11, 0.1);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+}
+
+.outlet-check-icon {
+  color: var(--color-brand-amber);
+  font-weight: 800;
+}
+
+/* Actions Row */
+.outlet-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.outlet-btn-primary {
+  background: linear-gradient(135deg, #f5a623 0%, var(--color-brand-amber) 45%, #c77b00 100%);
+  color: #ffffff;
+  border: none;
+  font-family: var(--font-primary);
+  font-size: 0.98rem;
+  font-weight: 700;
+  padding: 0.85rem 1.65rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  transition: transform 0.2s ease, background 0.2s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.outlet-btn-primary:hover {
+  background: linear-gradient(135deg, #f7b038 0%, #f5a623 45%, #d97706 100%);
+  transform: translateY(-2px);
+}
+
+.outlet-btn-secondary {
+  background-color: #ffffff;
+  color: var(--color-brand-deep-cocoa);
+  border: 1.5px solid rgba(229, 157, 11, 0.4);
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.82rem 1.5rem;
+  border-radius: 9999px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.outlet-btn-secondary:hover {
+  background-color: rgba(229, 157, 11, 0.12);
+  border-color: var(--color-brand-amber);
+  transform: translateY(-1.5px);
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .outlet-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+  }
+
+  .outlet-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 860px) {
+  .outlet-section {
+    padding: 3.5rem 1.25rem;
+  }
+
+  .outlet-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .outlet-image-card {
+    aspect-ratio: 16 / 11;
+    max-height: 400px;
+  }
+
+  .outlet-title {
+    font-size: 1.85rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .outlet-section {
+    padding: 2.5rem 0.85rem;
+  }
+
+  .outlet-eyebrow {
+    font-size: 0.8rem;
+  }
+
+  .outlet-title {
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
+  }
+
+  .outlet-description {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+  }
+
+  .outlet-image-card {
+    aspect-ratio: 1 / 1;
+    border-radius: 18px;
+    max-height: 340px;
+  }
+
+  .outlet-status-badge {
+    top: 0.65rem;
+    left: 0.65rem;
+    font-size: 0.68rem;
+    padding: 0.28rem 0.65rem;
+  }
+
+  .outlet-info-card {
+    padding: 0.9rem 1rem;
+    gap: 0.75rem;
+  }
+
+  .outlet-info-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .outlet-info-icon svg {
+    width: 19px;
+    height: 19px;
+  }
+
+  .outlet-info-value {
+    font-size: 0.88rem;
+  }
+
+  .outlet-perks-row {
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .outlet-perk-item {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.6rem;
+  }
+
+  .outlet-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.65rem;
+  }
+
+  .outlet-btn-primary,
+  .outlet-btn-secondary {
+    width: 100%;
+    padding: 0.75rem 1.25rem;
+    font-size: 0.92rem;
+  }
+}
+

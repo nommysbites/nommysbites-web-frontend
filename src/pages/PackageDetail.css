@@ -453,33 +453,6 @@
   flex-shrink: 0;
 }
 
-.detail-whatsapp-btn {
-  background-color: #25d366;
-  color: #ffffff;
-  border: none;
-  font-family: var(--font-primary);
-  font-size: 0.98rem;
-  font-weight: 700;
-  min-height: 48px;
-  padding: 0.85rem 1.6rem;
-  border-radius: 9999px;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  box-shadow: none;
-  text-decoration: none;
-  transition: background-color 0.15s ease, transform 0.15s ease;
-  box-sizing: border-box;
-}
-
-.detail-whatsapp-btn:hover {
-  background-color: #1fa851;
-  transform: translateY(-2px);
-  box-shadow: none;
-}
-
 /* ==========================================================================
    Related Packages Section
    ========================================================================== */
@@ -626,14 +599,6 @@
     min-height: 50px;
     padding: 0.95rem 1.5rem;
     font-size: 1rem;
-    box-sizing: border-box;
-  }
-
-  .detail-whatsapp-btn {
-    width: 100%;
-    min-height: 50px;
-    padding: 0.95rem 1.5rem;
-    font-size: 0.98rem;
     box-sizing: border-box;
   }
 

@@ -43,29 +43,11 @@ export function validateDeliveryFields({
 }
 
 export function teachAddressStore({
-  fulfillment,
-  nearestLandmark,
-  deliveryLocation,
+  fulfillment: _fulfillment,
+  nearestLandmark: _nearestLandmark,
+  deliveryLocation: _deliveryLocation,
 }) {
-  if (
-    fulfillment !== "delivery" ||
-    !nearestLandmark.trim() ||
-    !deliveryLocation.lat ||
-    !deliveryLocation.lng
-  ) {
-    return;
-  }
-
-  fetch("/api/location/learn", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      customAddress: nearestLandmark.trim(),
-      landmark: "",
-      lat: deliveryLocation.lat,
-      lng: deliveryLocation.lng,
-    }),
-  }).catch(() => {});
+  // Frontend only: zero backend API calls
 }
 
 export function resolveFinalAddress({

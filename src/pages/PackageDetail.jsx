@@ -7,10 +7,12 @@ import "./PackageDetail.css";
 
 export default function PackageDetail({ mode = "menu" }) {
   const isGift = mode === "gift";
-  const { addToBag, addToGiftBox } = useCart();
+  const { cartItems, addToBag, addToGiftBox } = useCart();
   const { id } = useParams();
   const navigate = useNavigate();
   const pkg = getPackageById(id);
+
+  const isInBag = Boolean(pkg && cartItems?.some((item) => item.id === pkg.id));
 
   const [quantity, setQuantity] = useState(1);
   const [relatedQuantities, setRelatedQuantities] = useState({});
@@ -65,7 +67,11 @@ export default function PackageDetail({ mode = "menu" }) {
     setQuantity((q) => q + 1);
   };
 
-  const handleAddToBag = () => {
+  const handleCartAction = () => {
+    if (isInBag) {
+      navigate("/bag");
+      return;
+    }
     addToBag(pkg, quantity);
     setQuantity(1);
     setAddedSuccess(true);
@@ -96,12 +102,6 @@ export default function PackageDetail({ mode = "menu" }) {
   };
 
   const displayImage = selectedImage || pkg.largeImage || pkg.image;
-
-  // WhatsApp pre-filled order link
-  const whatsappMsg = encodeURIComponent(
-    `Hello Nommy's Bites! I want to order ${quantity}x "${pkg.name}" (${pkg.formattedPrice} each). Please let me know how to proceed!`,
-  );
-  const whatsappUrl = `https://wa.me/2348105384162?text=${whatsappMsg}`;
 
   return (
     <div className="package-detail-page">
@@ -221,7 +221,7 @@ export default function PackageDetail({ mode = "menu" }) {
               </div>
             </div>
 
-            {/* Order Action Row: Quantity + Add to Bag + WhatsApp */}
+            {/* Order Action Row: Quantity + Add to Cart / Go to Cart + Send as a Gift */}
             <div className="detail-order-actions">
               <div className="detail-qty-picker" aria-label="Select quantity">
                 <button
@@ -245,7 +245,7 @@ export default function PackageDetail({ mode = "menu" }) {
 
               <button
                 type="button"
-                onClick={handleAddToBag}
+                onClick={handleCartAction}
                 className="detail-add-bag-btn"
               >
                 <svg
@@ -264,7 +264,13 @@ export default function PackageDetail({ mode = "menu" }) {
                   <path d="M3 6h18" />
                   <path d="M16 10a4 4 0 0 1-8 0" />
                 </svg>
-                <span>{addedSuccess ? "✓ Added to Bag!" : "Add to Bag"}</span>
+                <span>
+                  {addedSuccess
+                    ? "✓ Added to Cart!"
+                    : isInBag
+                    ? "Go to Cart"
+                    : "Add to Cart"}
+                </span>
               </button>
 
               <button
@@ -290,31 +296,9 @@ export default function PackageDetail({ mode = "menu" }) {
                   <path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5" />
                 </svg>
                 <span>
-                  {addedGiftSuccess ? "✓ Added to Gift Box!" : "Add to Gift Box"}
+                  {addedGiftSuccess ? "✓ Added to Gift Box!" : "Send as a Gift"}
                 </span>
               </button>
-
-              <a
-                href={whatsappUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="detail-whatsapp-btn"
-                aria-label="Order this item directly via WhatsApp"
-              >
-                <svg
-                  viewBox="0 0 24 24"
-                  width="18"
-                  height="18"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-                <span>Order on WhatsApp</span>
-              </a>
             </div>
           </div>
         </div>

@@ -7,10 +7,10 @@ import {
   isWithinBeninCity,
   calculateDistanceKm,
   calculateDeliveryFee,
+  encodePlusCode,
+  BENIN_CITY_LANDMARKS,
 } from "../utils/deliveryLocation";
 import "./DeliveryMapPicker.css";
-
-const API_BASE = import.meta.env.VITE_API_BASE_URL || "";
 
 // Store Pin Icon
 const storeIcon = L.divIcon({
@@ -125,7 +125,7 @@ export default function DeliveryMapPicker({
     setLocationNotice("");
 
     let resolvedAddress = "";
-    let distanceKm = Number(
+    const distanceKm = Number(
       calculateDistanceKm(
         STORE_LOCATION.lat,
         STORE_LOCATION.lng,
@@ -133,78 +133,38 @@ export default function DeliveryMapPicker({
         fixedLng
       ).toFixed(2)
     );
-    let deliveryFee = calculateDeliveryFee(distanceKm);
-    let plusCode = "";
-    let googleMapsUrl = `https://www.google.com/maps?q=${fixedLat},${fixedLng}`;
+    const deliveryFee = calculateDeliveryFee(distanceKm);
+    const plusCode = encodePlusCode(fixedLat, fixedLng);
+    const googleMapsUrl = `https://www.google.com/maps?q=${fixedLat},${fixedLng}`;
 
+    // Direct Nominatim Reverse Geocoding (Frontend only, zero backend API dependency)
     try {
       const res = await fetch(
-        `${API_BASE}/api/location/reverse?lat=${fixedLat}&lng=${fixedLng}`
+        `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${fixedLat}&lon=${fixedLng}&zoom=18&addressdetails=1&namedetails=1`,
+        {
+          headers: { "Accept-Language": "en" },
+          signal: AbortSignal.timeout(3500),
+        }
       );
-      const data = await res.json().catch(() => null);
-
-      if (!res.ok || data?.withinBenin === false) {
-        const msg =
-          data?.error ||
-          "Delivery is available within Benin City only. Please select a location inside Benin City.";
-        if (onLocationRejectRef.current) {
-          onLocationRejectRef.current(msg);
-        } else {
+      if (res.ok) {
+        const data = await res.json();
+        if (data?.address?.state && !/edo/i.test(data.address.state)) {
+          const msg =
+            "Delivery is available within Benin City only. Please select a location inside Benin City.";
           setLocationNotice(msg);
+          if (onLocationRejectRef.current) {
+            onLocationRejectRef.current(msg);
+          }
+          setReverseGeocoding(false);
+          return;
         }
-        setReverseGeocoding(false);
-        return;
-      }
-
-      if (data) {
-        if (data.formattedAddress) {
-          resolvedAddress = `${data.formattedAddress} (${fixedLat}, ${fixedLng})`;
-        }
-        if (typeof data.distanceKm === "number") {
-          distanceKm = data.distanceKm;
-        }
-        if (typeof data.deliveryFee === "number") {
-          deliveryFee = data.deliveryFee;
-        }
-        if (data.plusCode) {
-          plusCode = data.plusCode;
-        }
-        if (data.googleMapsUrl) {
-          googleMapsUrl = data.googleMapsUrl;
+        const clean = formatNominatimAddress(data);
+        if (clean) {
+          resolvedAddress = `${clean} (${fixedLat}, ${fixedLng})`;
         }
       }
     } catch {
-      // Direct Nominatim Reverse Geocoding fallback
-      try {
-        const fallbackRes = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${fixedLat}&lon=${fixedLng}&zoom=18&addressdetails=1&namedetails=1`,
-          {
-            headers: { "Accept-Language": "en" },
-          }
-        );
-        if (fallbackRes.ok) {
-          const fallbackData = await fallbackRes.json();
-          if (
-            fallbackData?.address?.state &&
-            !/edo/i.test(fallbackData.address.state)
-          ) {
-            const msg =
-              "Delivery is available within Benin City only. Please select a location inside Benin City.";
-            setLocationNotice(msg);
-            if (onLocationRejectRef.current) {
-              onLocationRejectRef.current(msg);
-            }
-            setReverseGeocoding(false);
-            return;
-          }
-          const clean = formatNominatimAddress(fallbackData);
-          if (clean) {
-            resolvedAddress = `${clean} (${fixedLat}, ${fixedLng})`;
-          }
-        }
-      } catch {
-        // Offline fallback
-      }
+      // Offline fallback: continue with coordinate label
     } finally {
       setReverseGeocoding(false);
     }
@@ -405,7 +365,7 @@ export default function DeliveryMapPicker({
     }
   };
 
-  // Forward Geocode Search via Backend (Nominatim + Local DB) restricted to Benin City
+  // Forward Geocode Search (Frontend only: Instant Local Landmarks + Nominatim OpenStreetMap)
   const handleSearch = async (e) => {
     const value = e.target.value;
     setSearchQuery(value);
@@ -416,43 +376,60 @@ export default function DeliveryMapPicker({
     }
 
     setIsSearching(true);
+    const clean = value.trim().toLowerCase();
+
+    // Instant local landmark matches in Benin City
+    const localMatches = BENIN_CITY_LANDMARKS.filter(
+      (lm) =>
+        lm.name.toLowerCase().includes(clean) ||
+        lm.area.toLowerCase().includes(clean)
+    ).map((lm) => ({
+      label: `${lm.name}, ${lm.area}, Benin City`,
+      lat: lm.lat,
+      lng: lm.lng,
+    }));
+
     try {
-      const res = await fetch(
-        `${API_BASE}/api/location/search?q=${encodeURIComponent(value.trim())}`
-      );
-      if (res.ok) {
-        const data = await res.json();
-        setSearchResults(data.results || []);
-        return;
-      }
-      throw new Error("BACKEND_SEARCH_UNAVAILABLE");
-    } catch {
-      // Direct Nominatim Forward Geocoding fallback bounded to Benin City
-      try {
-        const hasBenin = /benin|edo|uniben|ugbowo|ekosodin/i.test(value);
-        const q = hasBenin ? value.trim() : `${value.trim()}, Benin City`;
-        const nomRes = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(
-            q
-          )}&countrycodes=ng&viewbox=5.50,6.41,5.80,6.28&bounded=1&addressdetails=1&limit=6`,
-          { headers: { "Accept-Language": "en" } }
-        );
-        if (nomRes.ok) {
-          const nomItems = await nomRes.json();
-          const mapped = (nomItems || [])
-            .map((item) => ({
-              label: formatNominatimAddress(item) || item.display_name,
-              lat: Number(Number(item.lat).toFixed(6)),
-              lng: Number(Number(item.lon).toFixed(6)),
-            }))
-            .filter((item) => isWithinBeninCity(item.lat, item.lng));
-          setSearchResults(mapped);
-        } else {
-          setSearchResults([]);
+      const hasBenin = /benin|edo|uniben|ugbowo|ekosodin/i.test(value);
+      const q = hasBenin ? value.trim() : `${value.trim()}, Benin City`;
+      const nomRes = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=jsonv2&q=${encodeURIComponent(
+          q
+        )}&countrycodes=ng&viewbox=5.50,6.41,5.80,6.28&bounded=1&addressdetails=1&limit=6`,
+        {
+          headers: { "Accept-Language": "en" },
+          signal: AbortSignal.timeout(3500),
         }
-      } catch {
-        setSearchResults([]);
+      );
+      if (nomRes.ok) {
+        const nomItems = await nomRes.json();
+        const mapped = (nomItems || [])
+          .map((item) => ({
+            label: formatNominatimAddress(item) || item.display_name,
+            lat: Number(Number(item.lat).toFixed(6)),
+            lng: Number(Number(item.lon).toFixed(6)),
+          }))
+          .filter((item) => isWithinBeninCity(item.lat, item.lng));
+
+        // Deduplicate against local landmark matches
+        const combined = [...localMatches];
+        for (const item of mapped) {
+          if (
+            !combined.some(
+              (c) =>
+                Math.abs(c.lat - item.lat) < 0.001 &&
+                Math.abs(c.lng - item.lng) < 0.001
+            )
+          ) {
+            combined.push(item);
+          }
+        }
+        setSearchResults(combined.slice(0, 8));
+      } else {
+        setSearchResults(localMatches);
       }
+    } catch {
+      setSearchResults(localMatches);
     } finally {
       setIsSearching(false);
     }

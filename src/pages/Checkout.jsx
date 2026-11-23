@@ -206,29 +206,6 @@ export default function Checkout() {
           addOrder(order);
           clearBag();
           window.scrollTo({ top: 0, behavior: "smooth" });
-
-          fetch("/api/orders", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderType: "standard",
-              orderId: order.orderId,
-              paystackRef: order.paystackRef,
-              customer: order.customer,
-              registerAccount,
-              fulfillment: order.fulfillment,
-              deliveryAddress: finalAddress,
-              nearestLandmark: formData.nearestLandmark.trim(),
-              latitude: deliveryLocation.lat,
-              longitude: deliveryLocation.lng,
-              plusCode: deliveryLocation.plusCode,
-              distanceKm: deliveryLocation.distanceKm,
-              deliveryFee: activeDeliveryFee,
-              subtotal,
-              grandTotal,
-              items: order.items,
-            }),
-          }).catch(() => {});
         },
         onCancel: () => {
           setIsProcessing(false);

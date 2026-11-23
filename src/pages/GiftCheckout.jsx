@@ -365,45 +365,6 @@ export default function GiftCheckout() {
           addOrder({ ...order, orderType: "giftbox" });
           clearGiftBox();
           window.scrollTo({ top: 0, behavior: "smooth" });
-
-          fetch("/api/orders", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderType: "giftbox",
-              orderId: order.orderId,
-              paystackRef: order.paystackRef,
-              customer: {
-                firstName: order.sender.firstName,
-                lastName: order.sender.lastName,
-                email: order.sender.email,
-                phone: order.sender.phone,
-              },
-              registerAccount,
-              fulfillment: order.fulfillment,
-              deliveryAddress: finalAddress,
-              nearestLandmark: formData.nearestLandmark.trim(),
-              latitude: deliveryLocation.lat,
-              longitude: deliveryLocation.lng,
-              plusCode: deliveryLocation.plusCode,
-              distanceKm: deliveryLocation.distanceKm,
-              deliveryFee: activeDeliveryFee,
-              subtotal: giftBoxSubtotal,
-              grandTotal,
-              items: order.items,
-              giftDetails: {
-                sender: order.sender,
-                receiver: order.receiver,
-                noteType,
-                noteFee,
-                handwrittenNote: order.handwrittenNote,
-                noteFileName: noteFile?.name || "",
-                noteFileMime: noteFile?.type || "",
-                noteFileSize: noteFile?.size || 0,
-                noteFileBase64: noteFile?.dataUrl || "",
-              },
-            }),
-          }).catch(() => {});
         },
         onCancel: () => {
           setIsProcessing(false);
